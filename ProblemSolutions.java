@@ -1,7 +1,7 @@
 
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Connor Hendren / 002
  *
  *   This java file contains the problem solutions for the methods lastBoulder,
  *   showDuplicates, and pair methods. You should utilize the Java Collection
@@ -68,7 +68,18 @@ public class ProblemSolutions {
       //
       // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
       //
-      return -1;
+
+      //As the recomendation says; use reverse order so max is at the top
+      PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+      for(int b : boulders) pq.add(b);
+      //Use a while loop to iterate and compare
+      while(pq.size() > 1) {
+          int y = pq.poll(); //Should be the heaviest
+          int x = pq.poll(); //Should now be the second heaviest
+          if(x != y) pq.add(y - x); //The result
+      }
+      //Return the result
+      return pq.isEmpty() ? 0 : pq.peek();
   }
 
 
@@ -94,8 +105,23 @@ public class ProblemSolutions {
         //
         //  YOUR CODE GOES HERE
         //
-        return new ArrayList<>();  // Make sure result is sorted in ascending order
 
+        //Make a hashmap for frequency of each item
+        HashMap<String, Integer> freqMap = new HashMap<>();
+        //fill the hashmap
+        for(String s : input) {
+            freqMap.put(s, freqMap.getOrDefault(s, 0) + 1);
+        }
+        //Make an arraylist for the result
+        ArrayList<String> result = new ArrayList<>();
+        //Iterate and store in result
+        for(Map.Entry<String, Integer> entry : freqMap.entrySet()) {
+            if(entry.getValue() > 1) result.add(entry.getKey());
+        }
+        // Make sure result is sorted in ascending order
+        Collections.sort(result);
+        //Return
+        return result;
     }
 
 
@@ -134,6 +160,31 @@ public class ProblemSolutions {
         //
         //  YOUR CODE GOES HERE
         //
-        return new ArrayList<>();  // Make sure returned lists is sorted as indicated above
+
+        //Make a hashset for the elements that have been looked at
+        HashSet<Integer> seen = new HashSet<>();
+        //Make a hashset for the unique pairs, since it won't store duplicates
+        HashSet<String> uniquePairs = new HashSet<>();
+        //Make an arraylist for the result
+        ArrayList<String> result = new ArrayList<>();
+        //Use a for loop to iterate and compare
+        //Add to the unique pairs group
+        //Was gonna use a while loop, but I think this is better
+        for(int num : input) {
+            int complement = k -num;
+            if(seen.contains(complement)) {
+                int a = Math.min(num, complement);
+                int b = Math.min(num, complement);
+                uniquePairs.add("(" + a + ", " + b + "0);
+            }
+            //Add to list of numbers seen
+            seen.add(num);
+        }
+        //Add to result now
+        result.addAll(uniquePairs);
+        // Make sure returned lists is sorted as indicated above
+        Collections.sort(result);
+        //Return
+        return result;
     }
 }

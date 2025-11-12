@@ -63,24 +63,24 @@ public class ProblemSolutions {
      * returning the 0 if queue is empty else return pq.peek().
      */
 
-  public static int lastBoulder(int[] boulders) {
+    public static int lastBoulder(int[] boulders) {
 
-      //
-      // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
-      //
+        //
+        // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME / SECTION # ABOVE
+        //
 
-      //As the recomendation says; use reverse order so max is at the top
-      PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-      for(int b : boulders) pq.add(b);
-      //Use a while loop to iterate and compare
-      while(pq.size() > 1) {
-          int y = pq.poll(); //Should be the heaviest
-          int x = pq.poll(); //Should now be the second heaviest
-          if(x != y) pq.add(y - x); //The result
-      }
-      //Return the result
-      return pq.isEmpty() ? 0 : pq.peek();
-  }
+        //As the recomendation says; use reverse order so max is at the top
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        for(int b : boulders) pq.add(b);
+        //Use a while loop to iterate and compare
+        while(pq.size() > 1) {
+            int y = pq.poll(); //Should be the heaviest
+            int x = pq.poll(); //Should now be the second heaviest
+            if(x != y) pq.add(y - x); //The result
+        }
+        //Return the result
+        return pq.isEmpty() ? 0 : pq.peek();
+    }
 
 
     /**
@@ -171,11 +171,11 @@ public class ProblemSolutions {
         //Add to the unique pairs group
         //Was gonna use a while loop, but I think this is better
         for(int num : input) {
-            int complement = k -num;
+            int complement = k - num;
             if(seen.contains(complement)) {
                 int a = Math.min(num, complement);
-                int b = Math.min(num, complement);
-                uniquePairs.add("(" + a + ", " + b + "0);
+                int b = Math.max(num, complement);
+                uniquePairs.add("(" + a + ", " + b + ")");
             }
             //Add to list of numbers seen
             seen.add(num);
